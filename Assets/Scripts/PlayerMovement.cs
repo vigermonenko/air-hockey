@@ -3,14 +3,36 @@
 public class PlayerMovement : MonoBehaviour
 {
     private const int leftMouseButton = 0;
+    
     private bool wasJustClicked = true;
     private bool canMove;
-    Vector2 playerSize;
+    
+    private Vector2 playerSize;
     private Rigidbody2D rigidBody;
+    public Transform Bounder;
+
+    Boundary playerBoundary;
+    
+    struct Boundary
+    {
+        public float Up, Right, Down, Left;
+
+        public Boundary(float up, float right, float down, float left)
+        {
+            Up = up;
+            Right = right;
+            Down = down;
+            Left = left;
+        }
+    }
  
     void Start () {
         playerSize = GetComponent<SpriteRenderer>().bounds.extents;
         rigidBody = GetComponent<Rigidbody2D>();
+        playerBoundary = new Boundary(
+            Bounder.GetChild(0).position.y, Bounder.GetChild(1).position.x,
+        Bounder.GetChild(2).position.y, Bounder.GetChild(3).position.x
+        );
     }
  
     void Update () {
@@ -31,8 +53,12 @@ public class PlayerMovement : MonoBehaviour
                     canMove = false;
                 }
             }
-            if (canMove) {
-                rigidBody.MovePosition(mousePosition);
+            if (canMove)
+            {
+                var clampedX = Mathf.Clamp(mousePosition.x, playerBoundary.Left, playerBoundary.Right);
+                var clampedY = Mathf.Clamp(mousePosition.y, playerBoundary.Down, playerBoundary.Up);
+                var clampedMousePosition = new Vector2(clampedX, clampedY);
+                rigidBody.MovePosition(clampedMousePosition);
             }
         }
         else {
