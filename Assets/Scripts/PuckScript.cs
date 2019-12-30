@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Experimental.PlayerLoop;
 
 public class PuckScript : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class PuckScript : MonoBehaviour
     public ScoreScript ScoreScriptInstance;
     public static bool WasGoal { get; private set; }
     private Rigidbody2D rigidBody;
+
+    public float MaxSpeed;
     
     void Start () {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -23,21 +26,36 @@ public class PuckScript : MonoBehaviour
             {
                 ScoreScriptInstance.Increment(ScoreScript.Score.PlayerScore);
                 WasGoal = true;
-                StartCoroutine(ResetPuck());
+                StartCoroutine(AiScored());
             }
             else if (other.CompareTag(PlayerGoal))
             {
                 ScoreScriptInstance.Increment(ScoreScript.Score.AiScore);
                 WasGoal = true;
-                StartCoroutine(ResetPuck());
+                StartCoroutine(PlayerScored());
             }
         }
     }
- 
+
+    private IEnumerator PlayerScored()
+    {
+        yield return ResetPuck();
+        rigidBody.position = new Vector2(0, -1);
+    }
+    private IEnumerator AiScored()
+    {
+        yield return ResetPuck();
+        rigidBody.position = new Vector2(0, 1);
+    }
     private IEnumerator ResetPuck()
     {
         yield return new WaitForSecondsRealtime(1);
         WasGoal = false;
-        rigidBody.velocity = rigidBody.position = new Vector2(0, 0);
+        rigidBody.velocity = new Vector2(0, 0);
+    }
+
+    void FixedUpdate()
+    {
+        rigidBody.velocity = Vector2.ClampMagnitude(rigidBody.velocity, MaxSpeed);
     }
 }
