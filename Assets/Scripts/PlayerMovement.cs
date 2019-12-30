@@ -3,6 +3,7 @@
 public class PlayerMovement : MonoBehaviour
 {
     private const int leftMouseButton = 0;
+    private Vector2 StartPosition => new Vector2(0, -3);
     
     private bool wasJustClicked = true;
     private bool canMove;
@@ -42,5 +43,10 @@ public class PlayerMovement : MonoBehaviour
         else {
             wasJustClicked = true;
         }
+    }
+
+    public void ResetPosition()
+    {
+        rigidBody.position = StartPosition;
     }
 }

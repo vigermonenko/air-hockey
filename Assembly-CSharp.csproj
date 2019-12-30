@@ -62,6 +62,7 @@
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\PuckScript.cs" />
      <Compile Include="Assets\Scripts\ScoreScript.cs" />
+     <Compile Include="Assets\Scripts\UiManager.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>D:/BSUIR/air-hockey/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>

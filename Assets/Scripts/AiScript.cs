@@ -19,6 +19,8 @@ public class AiScript : MonoBehaviour {
     private bool isFirstTimeInOpponentsHalf = true;
     private float offsetXFromTarget;
  
+    private Vector2 StartPosition => new Vector2(0, 3);
+    
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -68,5 +70,10 @@ public class AiScript : MonoBehaviour {
             rb.MovePosition(Vector2.MoveTowards(rb.position, targetPosition,
                 movementSpeed * Time.fixedDeltaTime));
         }
+    }
+
+    public void ResetPosition()
+    {
+        rb.position = StartPosition;
     }
 }
