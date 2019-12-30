@@ -1,45 +1,42 @@
 ﻿using UnityEngine;
  
-public class PlayerMovement : MonoBehaviour {
- 
-    bool wasJustClicked = true;
-    bool canMove;
+public class PlayerMovement : MonoBehaviour
+{
+    private const int leftMouseButton = 0;
+    private bool wasJustClicked = true;
+    private bool canMove;
     Vector2 playerSize;
+    private Rigidbody2D rigidBody;
  
- void Start () {
-        playerSize = gameObject.GetComponent<SpriteRenderer>().bounds.extents;
- }
+    void Start () {
+        playerSize = GetComponent<SpriteRenderer>().bounds.extents;
+        rigidBody = GetComponent<Rigidbody2D>();
+    }
  
- void Update () {
- if (Input.GetMouseButton(0))
-        {
-            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    void Update () {
+        if (Input.GetMouseButton(leftMouseButton)) {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
  
-            if (wasJustClicked)
-            {
+            if (wasJustClicked) {
                 wasJustClicked = false;
  
-                if ((mousePos.x >= transform.position.x && mousePos.x < transform.position.x + playerSize.x ||
-                mousePos.x <= transform.position.x && mousePos.x > transform.position.x - playerSize.x) &&
-                (mousePos.y >= transform.position.y && mousePos.y < transform.position.y + playerSize.y ||
-                mousePos.y <= transform.position.y && mousePos.y > transform.position.y - playerSize.y))
+                if ((mousePosition.x >= transform.position.x && mousePosition.x < transform.position.x + playerSize.x ||
+                     mousePosition.x <= transform.position.x && mousePosition.x > transform.position.x - playerSize.x) &&
+                    (mousePosition.y >= transform.position.y && mousePosition.y < transform.position.y + playerSize.y ||
+                     mousePosition.y <= transform.position.y && mousePosition.y > transform.position.y - playerSize.y))
                 {
                     canMove = true;
                 }
-                else
-                {
+                else {
                     canMove = false;
                 }
             }
- 
-            if (canMove)
-            {
-                transform.position = mousePos;
+            if (canMove) {
+                rigidBody.MovePosition(mousePosition);
             }
         }
-        else
-        {
+        else {
             wasJustClicked = true;
         }
- }
+    }
 }
