@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
- 
-public class UiManager : MonoBehaviour {
- 
+using UnityEngine.SceneManagement;
+
+public class UiManager : MonoBehaviour
+{
+
+    public const string menu = "Menu";
+    
     [Header("Canvas")]
     public GameObject CanvasGame;
     public GameObject CanvasRestart;
@@ -51,5 +55,11 @@ public class UiManager : MonoBehaviour {
         puckScript.CenterPuck();
         playerMovement.ResetPosition();
         aiScript.ResetPosition();
+    }
+
+    public void GoToMenu()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(menu);
     }
 }
