@@ -546,6 +546,7 @@ GameObject:
   - component: {fileID: 408901279}
   - component: {fileID: 408901277}
   - component: {fileID: 408901280}
+  - component: {fileID: 408901281}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -729,6 +730,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AiPlayer: {fileID: 417438199}
+--- !u!114 &408901281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 408901274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba400fdeb6241194fa7b033fd6c30d4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Players: []
 --- !u!1 &417438199
 GameObject:
   m_ObjectHideFlags: 0
@@ -879,7 +893,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Bounder: {fileID: 1884669967}
-  playerCollider: {fileID: 0}
+  Controller: {fileID: 408901281}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1884,7 +1898,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Bounder: {fileID: 1822162524}
-  playerCollider: {fileID: 0}
+  Controller: {fileID: 408901281}
 --- !u!212 &1379817528
 SpriteRenderer:
   m_ObjectHideFlags: 0
